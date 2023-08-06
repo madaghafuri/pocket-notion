@@ -4,10 +4,10 @@ import PocketBase from 'pocketbase';
 export async function initPocketBase(context: GetServerSidePropsContext) {
     const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 
-    // load the store from cookie
+    // load the store data from cookie
     pb.authStore.loadFromCookie(context.req.headers.cookie || '');
 
-    // send new cookie if actual data
+    // send back the default 'pb_auth' cookie to the client with the latest store state
     pb.authStore.onChange(() => {
         context.res.setHeader('set-cookie', pb.authStore.exportToCookie());
     });
@@ -29,3 +29,7 @@ export async function initPocketBase(context: GetServerSidePropsContext) {
 
     return pb;
 }
+
+export const pbInstance = new PocketBase(
+    process.env.NEXT_PUBLIC_POCKETBASE_URL
+);
