@@ -1,11 +1,3 @@
-import { Button } from '@/components/ui/button';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
 import { UserAuthForm } from '@/components/user-auth-form';
 import { useGoogleLogin } from '@/hooks/oauth';
 import { initPocketBase, pbInstance } from '@/lib/pocketbase';
@@ -30,10 +22,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function Auth({
     result,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const { mutate: loginWithGoogle, isSuccess } = useGoogleLogin();
-    const router = useRouter();
-
-    if (isSuccess) router.push('/home');
+    console.log(result);
 
     return (
         <main
