@@ -7,7 +7,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { SortAsc } from 'lucide-react';
+import { Edit, Filter, SortAsc, SortDesc } from 'lucide-react';
 
 interface Props {
     title: string;
@@ -27,6 +27,11 @@ export function TaskColumnHeader({
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuLabel>{title}</DropdownMenuLabel>
+                <DropdownMenuItem className="text-muted-foreground">
+                    <MenuItem name="Edit Property">
+                        <Edit className="w-4 h-4" />
+                    </MenuItem>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-muted-foreground">
                     <MenuItem name="Sort Ascending">
@@ -34,10 +39,14 @@ export function TaskColumnHeader({
                     </MenuItem>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-muted-foreground">
-                    Sort Ascending
+                    <MenuItem name="Sort Descending">
+                        <SortDesc className="w-4 h-4" />
+                    </MenuItem>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-muted-foreground">
-                    Sort Ascending
+                    <MenuItem name="Filter">
+                        <Filter className="w-4 h-4" />
+                    </MenuItem>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>

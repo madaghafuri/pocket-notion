@@ -11,7 +11,7 @@ import { Badge } from '../ui/badge';
 import { DateToDDDMMMDDYYYY } from '@/helper/date';
 import { TaskColumnHeader } from './task-column-header';
 
-type Task = {
+export type Task = {
     id: string;
     name: string;
     status: { label: 'Done' | 'In Progress' | 'Not Started'; color: string };
@@ -115,7 +115,7 @@ const columns: ColumnDef<Task>[] = [
     },
 ];
 
-const tasks: Task[] = [
+export const tasks: Task[] = [
     {
         id: '728ed52f',
         name: 'Cari Referensi',

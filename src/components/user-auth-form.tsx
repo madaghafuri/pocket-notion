@@ -34,6 +34,10 @@ export function UserAuthForm({
         }, 3000);
     };
 
+    const onClick = () => {
+        login();
+    };
+
     if (isSuccess) router.push('/home');
 
     return (
@@ -79,7 +83,7 @@ export function UserAuthForm({
                         variant="outline"
                         type="button"
                         disabled={isLoading || oauthLoading}
-                        onClick={login as () => void}
+                        onClick={onClick}
                     >
                         {value.name.toUpperCase()}
                     </Button>

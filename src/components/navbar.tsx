@@ -13,10 +13,16 @@ import {
     CollapsibleTrigger,
 } from './ui/collapsible';
 import { Bell, ChevronsUpDown, Home } from 'lucide-react';
+import { Button } from './ui/button';
+import { pbInstance } from '@/lib/pocketbase';
+import { useAuthContext } from '@/hooks/auth';
 
 export function NavBar() {
     const [open, setOpen] = useState(false);
     const [searchFocus, setSearchFocus] = useState(false);
+    const [isLoggedIn, setIsLoggedin] = useState(!!pbInstance.authStore.model);
+
+    const { logout } = useAuthContext();
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -28,6 +34,14 @@ export function NavBar() {
 
         document.addEventListener('keydown', down);
         return () => document.removeEventListener('keydown', down);
+    }, []);
+
+    useEffect(() => {
+        const unsubscribe = pbInstance.authStore.onChange((_, model) => {
+            if (!model) setIsLoggedin(false);
+            else setIsLoggedin(true);
+        });
+        return () => unsubscribe();
     }, []);
 
     const handleFocus = () => {
@@ -76,7 +90,11 @@ export function NavBar() {
                     </CollapsibleContent>
                 </Collapsible>
             </div>
-            <div> </div>
+            {isLoggedIn && (
+                <div>
+                    <Button onClick={logout}>Logout</Button>
+                </div>
+            )}
         </div>
     );
 }
