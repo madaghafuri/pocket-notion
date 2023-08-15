@@ -5,7 +5,7 @@ export async function initPocketBase(context: GetServerSidePropsContext) {
     const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 
     // load the store data from cookie
-    pb.authStore.loadFromCookie(context.req.headers.cookie || '');
+    pb.authStore.loadFromCookie(context.req.headers.cookie || '', 'pb_auth');
 
     // send back the default 'pb_auth' cookie to the client with the latest store state
     pb.authStore.onChange(() => {

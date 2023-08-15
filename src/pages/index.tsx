@@ -3,34 +3,17 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { initPocketBase } from '@/lib/pocketbase';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { useAuthContext } from '@/hooks/auth';
 
-const inter = Inter({ subsets: ['latin'] });
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const pb = await initPocketBase(context);
-
-    const result = pb.authStore.isValid;
-    console.log(result);
-
-    return {
-        props: {
-            res: result,
-        },
-    };
-}
-
-export default function Home({
-    res,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home() {
+    const { isLoggedIn } = useAuthContext();
     const router = useRouter();
 
     useEffect(() => {
-        if (!res) router.push('/auth');
-    }, [res, router]);
+        if (!isLoggedIn) router.push('/auth');
+    }, [isLoggedIn, router]);
 
     return (
-        <main
-            className={`flex min-h-screen flex-col items-center p-24 ${inter.className}`}
-        ></main>
+        <main className={`flex min-h-screen flex-col items-center p-24`}></main>
     );
 }
